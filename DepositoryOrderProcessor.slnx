@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DepositoryOrderProcessor.Application/DepositoryOrderProcessor.Application.csproj" />
+  <Project Path="DepositoryOrderProcessor.ConsoleApp/DepositoryOrderProcessor.ConsoleApp.csproj" />
+  <Project Path="DepositoryOrderProcessor.Domain/DepositoryOrderProcessor.Domain.csproj" />
+  <Project Path="DepositoryOrderProcessor.Infrastructure/DepositoryOrderProcessor.Infrastructure.csproj" />
+</Solution>
