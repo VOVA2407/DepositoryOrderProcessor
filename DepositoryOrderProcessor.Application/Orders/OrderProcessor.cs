@@ -11,23 +11,41 @@ public sealed class OrderProcessor
         _positionRepository = positionRepository;
     }
 
-    public void Process(Order order)
+    public OrderProcessingResult Process(Order order)
     {
         var position = _positionRepository.Find(order.AccountId, order.SecurityCode);
 
         if (position is null)
         {
             order.MarkRejected();
-            return;
+            return new OrderProcessingResult(
+                order.Id,
+                order.Status,
+                AvailableQuantity: null,
+                RejectionReason: "PositionNotFound"
+            );
         }
 
         if (!position.CanReserve(order.Quantity))
         {
             order.MarkRejected();
-            return;
+
+            return new OrderProcessingResult(
+                order.Id,
+                order.Status,
+                position.AvailableQuantity,
+                RejectionReason: "NotEnoughAvailableQuantity"
+            );
         }
 
         position.Reserve(order.Quantity);
         order.MarkReserved();
+
+        return new OrderProcessingResult(
+            order.Id,
+            order.Status,
+            position.AvailableQuantity,
+            RejectionReason: null
+        );
     }
 }

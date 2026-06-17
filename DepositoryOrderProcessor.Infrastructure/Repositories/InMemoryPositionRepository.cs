@@ -14,10 +14,10 @@ public sealed class InMemoryPositionRepository : IPositionRepository
         var accountId = new AccountId(Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"));
         var securityCode = new SecurityCode("SBER");
 
-        _positions =
-        [
+        _positions = new List<Position>
+        {
             new Position(accountId, securityCode, 10)
-        ];
+        };
     }
 
     public Position? Find(AccountId accountId, SecurityCode securityCode)

@@ -32,10 +32,10 @@ var positionBefore = positionRepository.Find(accountId, securityCode);
 Console.WriteLine($"Создано поручение: Reserve {order.Quantity} {order.SecurityCode.Value}");
 Console.WriteLine($"Свободный остаток до обработки: {positionBefore?.AvailableQuantity}");
 
-orderProcessor.Process(order);
+var result = orderProcessor.Process(order);
 
 var positionAfter = positionRepository.Find(accountId, securityCode);
-
+Console.WriteLine($"Результат обработки: {result.Status}");
 Console.WriteLine($"Статус поручения:{order.Status}");
 Console.WriteLine($"Свободный остаток после обработки: {positionAfter?.AvailableQuantity}");
 
